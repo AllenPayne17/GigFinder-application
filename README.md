@@ -24,10 +24,10 @@ The application provides an interface for small business owners to post part-tim
 
 GigFinder is built using the following technologies:
 
-### Application
+#### Application
 - java
 - Swing
-### Server
+#### Server
 - React
 - Node.js
 - Express
