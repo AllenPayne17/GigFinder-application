@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Stack;
 import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -71,50 +72,35 @@ public class GigFinder extends javax.swing.JFrame {
 
             quickSort(date_created, 0, job.length -1, date_index);
 
-            
-            
             JPanel[] jobPanel = new JPanel[job.length];
             JPanel[] campusjobPanel = new JPanel[on_campus_index.size()];
             JPanel[] tutorjobPanel = new JPanel[tutor_index.size()];
             JPanel[] foodjobPanel = new JPanel[food_service_index.size()];
             
-            
             JLabel[] title = new JLabel[job.length];
             JLabel[] desc = new JLabel[job.length];
             JLabel[] hour_rate = new JLabel[job.length];
             JLabel[] workHour = new JLabel[job.length];
-            JLabel[] pref_skill = new JLabel[job.length];
-            JLabel[] work_categ = new JLabel[job.length];
-            JLabel[] id = new JLabel[job.length];
-            JLabel[] createdDate = new JLabel[job.length];
+            JLabel[] pref_skill = new JLabel[job.length];   
             
             JLabel[] campustitle = new JLabel[on_campus_index.size()];
             JLabel[] campusdesc = new JLabel[on_campus_index.size()];
             JLabel[] campushour_rate = new JLabel[on_campus_index.size()];
             JLabel[] campusworkHour = new JLabel[on_campus_index.size()];
             JLabel[] campuspref_skill = new JLabel[on_campus_index.size()];
-            JLabel[] campuswork_categ = new JLabel[on_campus_index.size()];
-            JLabel[] campusid = new JLabel[on_campus_index.size()];
-            JLabel[] campuscreatedDate = new JLabel[on_campus_index.size()];
-            
+           
             JLabel[] foodtitle = new JLabel[food_service_index.size()];
             JLabel[] fooddesc = new JLabel[food_service_index.size()];
             JLabel[] foodhour_rate = new JLabel[food_service_index.size()];
             JLabel[] foodworkHour = new JLabel[food_service_index.size()];
             JLabel[] foodpref_skill = new JLabel[food_service_index.size()];
-            JLabel[] foodwork_categ = new JLabel[food_service_index.size()];
-            JLabel[] foodid = new JLabel[food_service_index.size()];
-            JLabel[] foodcreatedDate = new JLabel[food_service_index.size()];
-            
+           
             JLabel[] tutortitle = new JLabel[tutor_index.size()];
             JLabel[] tutordesc = new JLabel[tutor_index.size()];
             JLabel[] tutorhour_rate = new JLabel[tutor_index.size()];
             JLabel[] tutorworkHour = new JLabel[tutor_index.size()];
             JLabel[] tutorpref_skill = new JLabel[tutor_index.size()];
-            JLabel[] tutorwork_categ = new JLabel[tutor_index.size()];
-            JLabel[] tutorid = new JLabel[tutor_index.size()];
-            JLabel[] tutorcreatedDate = new JLabel[tutor_index.size()];
-
+           
             initComponents();
             getContentPane().add(jScrollPane2);
             getContentPane().add(allJobs, BorderLayout.CENTER);
@@ -126,30 +112,26 @@ public class GigFinder extends javax.swing.JFrame {
                 jobPanel[i] = new JPanel();
                 title[i] = new JLabel(job[date_index[i]].get_job_title());
                 desc[i] = new JLabel(job[date_index[i]].get_job_description());
-                hour_rate[i] = new JLabel(String.valueOf(job[date_index[i]].get_hourly_rate()));
-                workHour[i] = new JLabel(String.valueOf(job[date_index[i]].get_workHours()));
+                hour_rate[i] = new JLabel("Hourly Rate: $"+ String.valueOf(job[date_index[i]].get_hourly_rate()) + "/hr");
+                workHour[i] = new JLabel("Work Hours: " + String.valueOf(job[date_index[i]].get_workHours()) + "hrs/week");
                 pref_skill[i] = new JLabel();
                 
                 String skills = "";
                     for(String skill : job[date_index[i]].get_preferred_skills()){
-                         skills += skill + " "; // MAGDAGDAG NG , somwhere
+                         skills += skill + " "; 
                     }
                 
-                pref_skill[i].setText(skills);
-                work_categ[i] = new JLabel(job[date_index[i]].get_work_category()[0]);
-                id[i] = new JLabel(job[date_index[i]].get_id());
-                createdDate[i] = new JLabel(String.valueOf(job[date_index[i]].get_createdAt()));
-                
+                pref_skill[i].setText("Preferred Skills: "+ skills);
+               
 
-                jobPanel[i].setBackground(Color.LIGHT_GRAY);
-                jobPanel[i].add(createdDate[i]);
+                jobPanel[i].setBackground(new Color(61,214,196));
+               
                 jobPanel[i].add(title[i]);
                 jobPanel[i].add(desc[i]);
                 jobPanel[i].add(hour_rate[i]);
                 jobPanel[i].add(workHour[i]);
                 jobPanel[i].add(pref_skill[i]);
-                jobPanel[i].add(work_categ[i]);
-                jobPanel[i].add(id[i]);
+               
                 
                 jobPanel[i].setLayout(new BoxLayout(jobPanel[i], BoxLayout.Y_AXIS));
                 allJobs.add(jobPanel[i]);
@@ -168,30 +150,26 @@ public class GigFinder extends javax.swing.JFrame {
                 campusjobPanel[i] = new JPanel();
                 campustitle[i] = new JLabel(job[on_campus_index.get(i)].get_job_title());
                 campusdesc[i] = new JLabel(job[on_campus_index.get(i)].get_job_description());
-                campushour_rate[i] = new JLabel(String.valueOf(job[on_campus_index.get(i)].get_hourly_rate()));
-                campusworkHour[i] = new JLabel(String.valueOf(job[on_campus_index.get(i)].get_workHours()));
+                campushour_rate[i] = new JLabel("Hourly Rate: $"+String.valueOf(job[on_campus_index.get(i)].get_hourly_rate())+ "/hr");
+                campusworkHour[i] = new JLabel("Work Hours: " +String.valueOf(job[on_campus_index.get(i)].get_workHours())+ "hrs/week");
                 campuspref_skill[i] = new JLabel();
+                
+                
                 
                 String skills = "";
                     for(String skill : job[on_campus_index.get(i)].get_preferred_skills()){
                          skills += skill + " "; // MAGDAGDAG NG , somwhere
                     }
                 
-                campuspref_skill[i].setText(skills);
-                campuswork_categ[i] = new JLabel(job[on_campus_index.get(i)].get_work_category()[0]);
-                campusid[i] = new JLabel(job[on_campus_index.get(i)].get_id());
-                campuscreatedDate[i] = new JLabel(String.valueOf(job[on_campus_index.get(i)].get_createdAt()));
+                campuspref_skill[i].setText("Preferred Skills: " + skills);
                 
-
-                campusjobPanel[i].setBackground(Color.LIGHT_GRAY);
-                campusjobPanel[i].add(campuscreatedDate[i]);
+                campusjobPanel[i].setBackground(new Color(61,214,196));
                 campusjobPanel[i].add(campustitle[i]);
                 campusjobPanel[i].add(campusdesc[i]);
                 campusjobPanel[i].add(campushour_rate[i]);
                 campusjobPanel[i].add(campusworkHour[i]);
                 campusjobPanel[i].add(campuspref_skill[i]);
-                campusjobPanel[i].add(campuswork_categ[i]);
-                campusjobPanel[i].add(campusid[i]);
+
                 
                 campusjobPanel[i].setLayout(new BoxLayout(campusjobPanel[i], BoxLayout.Y_AXIS));
                 campusJob.add(campusjobPanel[i]);
@@ -210,30 +188,23 @@ public class GigFinder extends javax.swing.JFrame {
                 foodjobPanel[i] = new JPanel();
                 foodtitle[i] = new JLabel(job[food_service_index.get(i)].get_job_title());
                 fooddesc[i] = new JLabel(job[food_service_index.get(i)].get_job_description());
-                foodhour_rate[i] = new JLabel(String.valueOf(job[food_service_index.get(i)].get_hourly_rate()));
-                foodworkHour[i] = new JLabel(String.valueOf(job[food_service_index.get(i)].get_workHours()));
+                foodhour_rate[i] = new JLabel("Hourly Rate: $"+String.valueOf(job[food_service_index.get(i)].get_hourly_rate())+ "/hr");
+                foodworkHour[i] = new JLabel("Work Hours: " + String.valueOf(job[food_service_index.get(i)].get_workHours())+ "hrs/week");
                 foodpref_skill[i] = new JLabel();
-                
+                 
                 String skills = "";
                     for(String skill : job[food_service_index.get(i)].get_preferred_skills()){
                          skills += skill + " "; // MAGDAGDAG NG , somwhere
                     }
                 
-                foodpref_skill[i].setText(skills);
-                foodwork_categ[i] = new JLabel(job[food_service_index.get(i)].get_work_category()[0]);
-                foodid[i] = new JLabel(job[food_service_index.get(i)].get_id());
-                foodcreatedDate[i] = new JLabel(String.valueOf(job[food_service_index.get(i)].get_createdAt()));
-                
+                foodpref_skill[i].setText("Preferred Skills: " + skills);
+                foodjobPanel[i].setBackground(new Color(61,214,196));
 
-                foodjobPanel[i].setBackground(Color.LIGHT_GRAY);
-                foodjobPanel[i].add(foodcreatedDate[i]);
                 foodjobPanel[i].add(foodtitle[i]);
                 foodjobPanel[i].add(fooddesc[i]);
                 foodjobPanel[i].add(foodhour_rate[i]);
                 foodjobPanel[i].add(foodworkHour[i]);
                 foodjobPanel[i].add(foodpref_skill[i]);
-                foodjobPanel[i].add(foodwork_categ[i]);
-                foodjobPanel[i].add(foodid[i]);
                 
                 foodjobPanel[i].setLayout(new BoxLayout(foodjobPanel[i], BoxLayout.Y_AXIS));
                 foodServiceJob.add(foodjobPanel[i]);
@@ -249,8 +220,8 @@ public class GigFinder extends javax.swing.JFrame {
                 tutorjobPanel[i] = new JPanel();
                 tutortitle[i] = new JLabel(job[tutor_index.get(i)].get_job_title());
                 tutordesc[i] = new JLabel(job[tutor_index.get(i)].get_job_description());
-                tutorhour_rate[i] = new JLabel(String.valueOf(job[tutor_index.get(i)].get_hourly_rate()));
-                tutorworkHour[i] = new JLabel(String.valueOf(job[tutor_index.get(i)].get_workHours()));
+                tutorhour_rate[i] = new JLabel("Hourly Rate: $" + String.valueOf(job[tutor_index.get(i)].get_hourly_rate())+ "/hr");
+                tutorworkHour[i] = new JLabel("Work Hours: " +String.valueOf(job[tutor_index.get(i)].get_workHours())+ "hrs/week");
                 tutorpref_skill[i] = new JLabel();
                 
                 String skills = "";
@@ -258,21 +229,13 @@ public class GigFinder extends javax.swing.JFrame {
                          skills += skill + " "; // MAGDAGDAG NG , somwhere
                     }
                 
-                tutorpref_skill[i].setText(skills);
-                tutorwork_categ[i] = new JLabel(job[tutor_index.get(i)].get_work_category()[0]);
-                tutorid[i] = new JLabel(job[tutor_index.get(i)].get_id());
-                tutorcreatedDate[i] = new JLabel(String.valueOf(job[tutor_index.get(i)].get_createdAt()));
-                
-
-                tutorjobPanel[i].setBackground(Color.LIGHT_GRAY);
-                tutorjobPanel[i].add(tutorcreatedDate[i]);
+                tutorpref_skill[i].setText("Preferred Skills: " + skills);
+                tutorjobPanel[i].setBackground(new Color(61,214,196));
                 tutorjobPanel[i].add(tutortitle[i]);
                 tutorjobPanel[i].add(tutordesc[i]);
                 tutorjobPanel[i].add(tutorhour_rate[i]);
                 tutorjobPanel[i].add(tutorworkHour[i]);
                 tutorjobPanel[i].add(tutorpref_skill[i]);
-                tutorjobPanel[i].add(tutorwork_categ[i]);
-                tutorjobPanel[i].add(tutorid[i]);
                 
                 tutorjobPanel[i].setLayout(new BoxLayout(tutorjobPanel[i], BoxLayout.Y_AXIS));
                 tutorJob.add(tutorjobPanel[i]);
@@ -341,6 +304,7 @@ public class GigFinder extends javax.swing.JFrame {
         Blogout = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         allPostPanel = new javax.swing.JPanel();
+        allpane = new javax.swing.JPanel();
         postPanel = new javax.swing.JPanel();
         bProfilePanel = new javax.swing.JPanel();
         BprofilePic = new javax.swing.JLabel();
@@ -508,15 +472,32 @@ public class GigFinder extends javax.swing.JFrame {
         allPostPanel.setBackground(new java.awt.Color(204, 255, 204));
         allPostPanel.setVisible(true);
 
+        javax.swing.GroupLayout allpaneLayout = new javax.swing.GroupLayout(allpane);
+        allpane.setLayout(allpaneLayout);
+        allpaneLayout.setHorizontalGroup(
+            allpaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 821, Short.MAX_VALUE)
+        );
+        allpaneLayout.setVerticalGroup(
+            allpaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 565, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout allPostPanelLayout = new javax.swing.GroupLayout(allPostPanel);
         allPostPanel.setLayout(allPostPanelLayout);
         allPostPanelLayout.setHorizontalGroup(
             allPostPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 826, Short.MAX_VALUE)
+            .addGroup(allPostPanelLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(allpane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         allPostPanelLayout.setVerticalGroup(
             allPostPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 620, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, allPostPanelLayout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addComponent(allpane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
 
         postPanel.setBackground(new java.awt.Color(51, 255, 204));
@@ -555,19 +536,11 @@ public class GigFinder extends javax.swing.JFrame {
             bProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bProfilePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(badress)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(bProfilePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bbio)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bProfilePanelLayout.createSequentialGroup()
-                .addContainerGap(366, Short.MAX_VALUE)
-                .addComponent(companyName)
-                .addContainerGap(364, Short.MAX_VALUE))
-            .addGroup(bProfilePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BprofilePic, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(bProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(badress)
+                    .addComponent(bbio)
+                    .addComponent(companyName)
+                    .addComponent(BprofilePic, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         bProfilePanelLayout.setVerticalGroup(
@@ -581,7 +554,7 @@ public class GigFinder extends javax.swing.JFrame {
                 .addComponent(badress)
                 .addGap(47, 47, 47)
                 .addComponent(bbio)
-                .addContainerGap(220, Short.MAX_VALUE))
+                .addContainerGap(314, Short.MAX_VALUE))
         );
 
         bAboutPanel.setBackground(new java.awt.Color(255, 204, 204));
@@ -603,7 +576,7 @@ public class GigFinder extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 46, Short.MAX_VALUE)
                 .addComponent(bAboutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(bProfilePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -634,7 +607,7 @@ public class GigFinder extends javax.swing.JFrame {
         );
         BhomepageLayout.setVerticalGroup(
             BhomepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Bsidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+            .addComponent(Bsidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -972,15 +945,14 @@ public class GigFinder extends javax.swing.JFrame {
 
         campusScroll.setForeground(new java.awt.Color(0, 94, 129));
         campusScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        campusScroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         campusScroll.setViewportBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         campusScroll.setMinimumSize(new java.awt.Dimension(790, 485));
         campusScroll.setPreferredSize(new java.awt.Dimension(790, 2000));
 
-        campusJob.setBackground(new java.awt.Color(255, 204, 204));
+        campusJob.setBackground(new java.awt.Color(0, 94, 129));
         campusJob.setForeground(new java.awt.Color(0, 94, 129));
-        campusJob.setMinimumSize(new java.awt.Dimension(770, 400));
-        campusJob.setPreferredSize(new java.awt.Dimension(770, 700));
+        campusJob.setMinimumSize(new java.awt.Dimension(770, 350));
+        campusJob.setPreferredSize(new java.awt.Dimension(770, 350));
         campusJob.setVisible(false);
 
         javax.swing.GroupLayout campusJobLayout = new javax.swing.GroupLayout(campusJob);
@@ -998,15 +970,14 @@ public class GigFinder extends javax.swing.JFrame {
 
         tutorScroll.setForeground(new java.awt.Color(0, 94, 129));
         tutorScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        tutorScroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         tutorScroll.setViewportBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         tutorScroll.setMinimumSize(new java.awt.Dimension(790, 485));
         tutorScroll.setPreferredSize(new java.awt.Dimension(790, 2000));
 
-        tutorJob.setBackground(new java.awt.Color(255, 204, 0));
+        tutorJob.setBackground(new java.awt.Color(0, 94, 129));
         tutorJob.setForeground(new java.awt.Color(0, 94, 129));
-        tutorJob.setMinimumSize(new java.awt.Dimension(770, 400));
-        tutorJob.setPreferredSize(new java.awt.Dimension(770, 700));
+        tutorJob.setMinimumSize(new java.awt.Dimension(770, 350));
+        tutorJob.setPreferredSize(new java.awt.Dimension(770, 350));
 
         javax.swing.GroupLayout tutorJobLayout = new javax.swing.GroupLayout(tutorJob);
         tutorJob.setLayout(tutorJobLayout);
@@ -1024,26 +995,25 @@ public class GigFinder extends javax.swing.JFrame {
 
         foodScroll.setForeground(new java.awt.Color(0, 94, 129));
         foodScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        foodScroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         foodScroll.setViewportBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         foodScroll.setMinimumSize(new java.awt.Dimension(800, 485));
         foodScroll.setPreferredSize(new java.awt.Dimension(790, 2000));
 
-        foodServiceJob.setBackground(new java.awt.Color(0, 204, 204));
+        foodServiceJob.setBackground(new java.awt.Color(0, 94, 129));
         foodServiceJob.setForeground(new java.awt.Color(0, 94, 129));
-        foodServiceJob.setMinimumSize(new java.awt.Dimension(770, 400));
+        foodServiceJob.setMinimumSize(new java.awt.Dimension(770, 350));
         foodServiceJob.setName(""); // NOI18N
-        foodServiceJob.setPreferredSize(new java.awt.Dimension(770, 700));
+        foodServiceJob.setPreferredSize(new java.awt.Dimension(770, 350));
 
         javax.swing.GroupLayout foodServiceJobLayout = new javax.swing.GroupLayout(foodServiceJob);
         foodServiceJob.setLayout(foodServiceJobLayout);
         foodServiceJobLayout.setHorizontalGroup(
             foodServiceJobLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 778, Short.MAX_VALUE)
+            .addGap(0, 770, Short.MAX_VALUE)
         );
         foodServiceJobLayout.setVerticalGroup(
             foodServiceJobLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 350, Short.MAX_VALUE)
         );
 
         foodScroll.setViewportView(foodServiceJob);
@@ -1059,17 +1029,18 @@ public class GigFinder extends javax.swing.JFrame {
         allJobs.setBackground(new java.awt.Color(0, 94, 129));
         allJobs.setForeground(new java.awt.Color(0, 94, 129));
         allJobs.setMinimumSize(new java.awt.Dimension(770, 400));
-        allJobs.setPreferredSize(new java.awt.Dimension(770, 1900));
+        allJobs.setPreferredSize(new java.awt.Dimension(770, 1300));
+        allJobs.setRequestFocusEnabled(false);
 
         javax.swing.GroupLayout allJobsLayout = new javax.swing.GroupLayout(allJobs);
         allJobs.setLayout(allJobsLayout);
         allJobsLayout.setHorizontalGroup(
             allJobsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 779, Short.MAX_VALUE)
+            .addGap(0, 778, Short.MAX_VALUE)
         );
         allJobsLayout.setVerticalGroup(
             allJobsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1900, Short.MAX_VALUE)
+            .addGap(0, 1300, Short.MAX_VALUE)
         );
 
         jScrollPane2.setViewportView(allJobs);
@@ -1147,7 +1118,7 @@ public class GigFinder extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(labelJoblist)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JobsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(JobsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                 .addGap(16, 16, 16))
         );
 
@@ -1222,15 +1193,14 @@ public class GigFinder extends javax.swing.JFrame {
         var pass = password.getText();
         try {
             //user
-            String response = apiCLient.loginUser("johndoe@gmail.com", "mysecretpassword");
-            System.out.println(response);
+            //String response = apiCLient.loginUser("johndoe@gmail.com", "mysecretpassword");
+            String response = apiCLient.loginUser("johndoe@gmail.com", "mypassword");
+ 
             
    
             Gson gson = new Gson();
             
             UserType.UserProfile user = gson.fromJson(response,UserType.UserProfile.class);
-            
-            System.out.println(user.getAccountType());
             if("Student".equals(user.getAccountType())) {
                 StudentProfile.UserProfile student = gson.fromJson(response, StudentProfile.UserProfile.class);
                 
@@ -1262,10 +1232,7 @@ public class GigFinder extends javax.swing.JFrame {
                     
                     position.setText(workExperience.getPosition());
                     company.setText(workExperience.getCompanyName());
-                    Responsibilities.setText(workExperience.getResponsibilities());
-                    System.out.println("Position: " + workExperience.getPosition());
-                    System.out.println("Company Name: " + workExperience.getCompanyName());
-                    System.out.println("Responsibilities: " + workExperience.getResponsibilities());
+                    Responsibilities.setText(workExperience.getResponsibilities());                
                 }
 
             } else if ("BusinessOwner".equals(user.getAccountType())) {
@@ -1286,6 +1253,54 @@ public class GigFinder extends javax.swing.JFrame {
                 companyName.setText(Owner.getProfile().getCompany_name());
                 badress.setText(Owner.getProfile().getAddress());
                 bbio.setText(Owner.getProfile().getAboutUs());
+                
+                
+                                
+                Stack<Integer> stack = new Stack<Integer>();
+                int job_size = Owner.getProfile().getJob_posts().size();
+                // Owner.getProfile().getJob_posts().get(i)
+                for(int i = 0; i < job_size ; i++){
+                    stack.push(i);
+                }
+                
+                JPanel[] jobPanel= new JPanel[job_size];
+                JLabel[] title = new JLabel[job_size];
+                JLabel[] desc = new JLabel[job_size];
+                JLabel[] hour_rate = new JLabel[job_size];
+                JLabel[] workHour = new JLabel[job_size];
+                JLabel[] pref_skill = new JLabel[job_size];
+              
+                getContentPane().add(allPostPanel, BorderLayout.CENTER);
+                allpane.setLayout(new BoxLayout(allpane, BoxLayout.Y_AXIS));
+            
+                for(int i = 0; i < job_size; i++){
+                jobPanel[i] = new JPanel();
+                title[i] = new JLabel(Owner.getProfile().getJob_posts().get(stack.peek()).getJob_title());
+                desc[i] = new JLabel(Owner.getProfile().getJob_posts().get(stack.peek()).getJob_description());
+                hour_rate[i] = new JLabel("Hourly Rate: $" + String.valueOf(Owner.getProfile().getJob_posts().get(stack.peek()).getHourly_rate())+ "/hr");
+                workHour[i] = new JLabel("Work Hours: " + String.valueOf(Owner.getProfile().getJob_posts().get(stack.peek()).getWorkHours())+ "hrs/week");
+                pref_skill[i] = new JLabel();
+                
+                String skills = "";
+                    for(String skill : Owner.getProfile().getJob_posts().get(stack.peek()).getPreferred_skills()){
+                         skills += skill + " "; 
+                    }
+                    
+                pref_skill[i].setText("Preferred Skills: " + skills);               
+                jobPanel[i].setBackground(new Color(61,214,196));
+                jobPanel[i].add(title[i]);
+                jobPanel[i].add(desc[i]);
+                jobPanel[i].add(hour_rate[i]);
+                jobPanel[i].add(workHour[i]);
+                jobPanel[i].add(pref_skill[i]);
+                
+                jobPanel[i].setLayout(new BoxLayout(jobPanel[i], BoxLayout.Y_AXIS));
+                allpane.add(jobPanel[i]);
+                allpane.add(Box.createRigidArea(new Dimension(0,25)));
+                allPostPanel.add(allpane);
+                stack.pop();
+                }
+   
             }
 
         } catch (IOException e) {
@@ -1478,6 +1493,7 @@ public class GigFinder extends javax.swing.JFrame {
     private javax.swing.JButton allBtn;
     private javax.swing.JPanel allJobs;
     private javax.swing.JPanel allPostPanel;
+    private javax.swing.JPanel allpane;
     private javax.swing.JPanel bAboutPanel;
     private javax.swing.JPanel bProfilePanel;
     private javax.swing.JLabel badress;
