@@ -318,7 +318,6 @@ public class GigFinder extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GigFinder");
         setLocation(new java.awt.Point(0, 0));
-        setPreferredSize(new java.awt.Dimension(1000, 650));
         setResizable(false);
         setSize(new java.awt.Dimension(0, 0));
 
@@ -427,9 +426,9 @@ public class GigFinder extends javax.swing.JFrame {
         aboutPanelLayout.setHorizontalGroup(
             aboutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(aboutPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(123, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(124, Short.MAX_VALUE))
             .addGroup(aboutPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
@@ -438,9 +437,9 @@ public class GigFinder extends javax.swing.JFrame {
         aboutPanelLayout.setVerticalGroup(
             aboutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(aboutPanelLayout.createSequentialGroup()
-                .addGap(144, 144, 144)
+                .addGap(110, 110, 110)
                 .addComponent(jLabel4)
-                .addGap(79, 79, 79)
+                .addGap(113, 113, 113)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(274, Short.MAX_VALUE))
         );
