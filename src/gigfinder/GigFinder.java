@@ -25,8 +25,6 @@ import javax.swing.JPanel;
 
 public class GigFinder extends javax.swing.JFrame {
     
-    private JPanel[] job;
-    private JLabel[] listing;
     
     public GigFinder() {
         
@@ -74,10 +72,14 @@ public class GigFinder extends javax.swing.JFrame {
             quickSort(date_created, 0, job.length -1, date_index);
 
             
-            initComponents();
+            
             JPanel[] jobPanel = new JPanel[job.length];
+            JPanel[] campusjobPanel = new JPanel[on_campus_index.size()];
+            JPanel[] tutorjobPanel = new JPanel[tutor_index.size()];
+            JPanel[] foodjobPanel = new JPanel[food_service_index.size()];
+            
+            
             JLabel[] title = new JLabel[job.length];
-            //JTextArea[] desc = new JTextArea[job.length];
             JLabel[] desc = new JLabel[job.length];
             JLabel[] hour_rate = new JLabel[job.length];
             JLabel[] workHour = new JLabel[job.length];
@@ -86,9 +88,40 @@ public class GigFinder extends javax.swing.JFrame {
             JLabel[] id = new JLabel[job.length];
             JLabel[] createdDate = new JLabel[job.length];
             
-            allJobs.setLayout(new BoxLayout(allJobs, BoxLayout.Y_AXIS));
-            getContentPane().add(allJobs, BorderLayout.CENTER);
+            JLabel[] campustitle = new JLabel[on_campus_index.size()];
+            JLabel[] campusdesc = new JLabel[on_campus_index.size()];
+            JLabel[] campushour_rate = new JLabel[on_campus_index.size()];
+            JLabel[] campusworkHour = new JLabel[on_campus_index.size()];
+            JLabel[] campuspref_skill = new JLabel[on_campus_index.size()];
+            JLabel[] campuswork_categ = new JLabel[on_campus_index.size()];
+            JLabel[] campusid = new JLabel[on_campus_index.size()];
+            JLabel[] campuscreatedDate = new JLabel[on_campus_index.size()];
+            
+            JLabel[] foodtitle = new JLabel[food_service_index.size()];
+            JLabel[] fooddesc = new JLabel[food_service_index.size()];
+            JLabel[] foodhour_rate = new JLabel[food_service_index.size()];
+            JLabel[] foodworkHour = new JLabel[food_service_index.size()];
+            JLabel[] foodpref_skill = new JLabel[food_service_index.size()];
+            JLabel[] foodwork_categ = new JLabel[food_service_index.size()];
+            JLabel[] foodid = new JLabel[food_service_index.size()];
+            JLabel[] foodcreatedDate = new JLabel[food_service_index.size()];
+            
+            JLabel[] tutortitle = new JLabel[tutor_index.size()];
+            JLabel[] tutordesc = new JLabel[tutor_index.size()];
+            JLabel[] tutorhour_rate = new JLabel[tutor_index.size()];
+            JLabel[] tutorworkHour = new JLabel[tutor_index.size()];
+            JLabel[] tutorpref_skill = new JLabel[tutor_index.size()];
+            JLabel[] tutorwork_categ = new JLabel[tutor_index.size()];
+            JLabel[] tutorid = new JLabel[tutor_index.size()];
+            JLabel[] tutorcreatedDate = new JLabel[tutor_index.size()];
 
+            initComponents();
+            getContentPane().add(jScrollPane2);
+            getContentPane().add(allJobs, BorderLayout.CENTER);
+            allJobs.setLayout(new BoxLayout(allJobs, BoxLayout.Y_AXIS));
+            jScrollPane2.setVisible(true);
+            
+ 
             for(int i = 0; i < job.length; i++){
                 jobPanel[i] = new JPanel();
                 title[i] = new JLabel(job[date_index[i]].get_job_title());
@@ -120,9 +153,138 @@ public class GigFinder extends javax.swing.JFrame {
                 
                 jobPanel[i].setLayout(new BoxLayout(jobPanel[i], BoxLayout.Y_AXIS));
                 allJobs.add(jobPanel[i]);
-                allJobs.add(Box.createRigidArea(new Dimension(0,5)));
+                allJobs.add(Box.createRigidArea(new Dimension(0,25)));
+                
             }
            
+           
+           
+           
+           getContentPane().add(campusScroll);
+           getContentPane().add(campusJob, BorderLayout.CENTER);
+           campusJob.setLayout(new BoxLayout(campusJob, BoxLayout.Y_AXIS));
+           
+           for(int i = 0; i < on_campus_index.size(); i++){
+                campusjobPanel[i] = new JPanel();
+                campustitle[i] = new JLabel(job[on_campus_index.get(i)].get_job_title());
+                campusdesc[i] = new JLabel(job[on_campus_index.get(i)].get_job_description());
+                campushour_rate[i] = new JLabel(String.valueOf(job[on_campus_index.get(i)].get_hourly_rate()));
+                campusworkHour[i] = new JLabel(String.valueOf(job[on_campus_index.get(i)].get_workHours()));
+                campuspref_skill[i] = new JLabel();
+                
+                String skills = "";
+                    for(String skill : job[on_campus_index.get(i)].get_preferred_skills()){
+                         skills += skill + " "; // MAGDAGDAG NG , somwhere
+                    }
+                
+                campuspref_skill[i].setText(skills);
+                campuswork_categ[i] = new JLabel(job[on_campus_index.get(i)].get_work_category()[0]);
+                campusid[i] = new JLabel(job[on_campus_index.get(i)].get_id());
+                campuscreatedDate[i] = new JLabel(String.valueOf(job[on_campus_index.get(i)].get_createdAt()));
+                
+
+                campusjobPanel[i].setBackground(Color.LIGHT_GRAY);
+                campusjobPanel[i].add(campuscreatedDate[i]);
+                campusjobPanel[i].add(campustitle[i]);
+                campusjobPanel[i].add(campusdesc[i]);
+                campusjobPanel[i].add(campushour_rate[i]);
+                campusjobPanel[i].add(campusworkHour[i]);
+                campusjobPanel[i].add(campuspref_skill[i]);
+                campusjobPanel[i].add(campuswork_categ[i]);
+                campusjobPanel[i].add(campusid[i]);
+                
+                campusjobPanel[i].setLayout(new BoxLayout(campusjobPanel[i], BoxLayout.Y_AXIS));
+                campusJob.add(campusjobPanel[i]);
+                campusJob.add(Box.createRigidArea(new Dimension(0,25)));
+                
+            }
+           
+         
+           
+           
+           getContentPane().add(foodScroll);
+           getContentPane().add(foodServiceJob, BorderLayout.CENTER);
+           foodServiceJob.setLayout(new BoxLayout(foodServiceJob, BoxLayout.Y_AXIS));
+           
+           for(int i = 0; i < food_service_index.size(); i++){
+                foodjobPanel[i] = new JPanel();
+                foodtitle[i] = new JLabel(job[food_service_index.get(i)].get_job_title());
+                fooddesc[i] = new JLabel(job[food_service_index.get(i)].get_job_description());
+                foodhour_rate[i] = new JLabel(String.valueOf(job[food_service_index.get(i)].get_hourly_rate()));
+                foodworkHour[i] = new JLabel(String.valueOf(job[food_service_index.get(i)].get_workHours()));
+                foodpref_skill[i] = new JLabel();
+                
+                String skills = "";
+                    for(String skill : job[food_service_index.get(i)].get_preferred_skills()){
+                         skills += skill + " "; // MAGDAGDAG NG , somwhere
+                    }
+                
+                foodpref_skill[i].setText(skills);
+                foodwork_categ[i] = new JLabel(job[food_service_index.get(i)].get_work_category()[0]);
+                foodid[i] = new JLabel(job[food_service_index.get(i)].get_id());
+                foodcreatedDate[i] = new JLabel(String.valueOf(job[food_service_index.get(i)].get_createdAt()));
+                
+
+                foodjobPanel[i].setBackground(Color.LIGHT_GRAY);
+                foodjobPanel[i].add(foodcreatedDate[i]);
+                foodjobPanel[i].add(foodtitle[i]);
+                foodjobPanel[i].add(fooddesc[i]);
+                foodjobPanel[i].add(foodhour_rate[i]);
+                foodjobPanel[i].add(foodworkHour[i]);
+                foodjobPanel[i].add(foodpref_skill[i]);
+                foodjobPanel[i].add(foodwork_categ[i]);
+                foodjobPanel[i].add(foodid[i]);
+                
+                foodjobPanel[i].setLayout(new BoxLayout(foodjobPanel[i], BoxLayout.Y_AXIS));
+                foodServiceJob.add(foodjobPanel[i]);
+                foodServiceJob.add(Box.createRigidArea(new Dimension(0,25)));
+                
+            }
+           
+           getContentPane().add(tutorScroll);
+           getContentPane().add(tutorJob, BorderLayout.CENTER);
+           tutorJob.setLayout(new BoxLayout(tutorJob, BoxLayout.Y_AXIS));
+           
+           for(int i = 0; i < tutor_index.size(); i++){
+                tutorjobPanel[i] = new JPanel();
+                tutortitle[i] = new JLabel(job[tutor_index.get(i)].get_job_title());
+                tutordesc[i] = new JLabel(job[tutor_index.get(i)].get_job_description());
+                tutorhour_rate[i] = new JLabel(String.valueOf(job[tutor_index.get(i)].get_hourly_rate()));
+                tutorworkHour[i] = new JLabel(String.valueOf(job[tutor_index.get(i)].get_workHours()));
+                tutorpref_skill[i] = new JLabel();
+                
+                String skills = "";
+                    for(String skill : job[tutor_index.get(i)].get_preferred_skills()){
+                         skills += skill + " "; // MAGDAGDAG NG , somwhere
+                    }
+                
+                tutorpref_skill[i].setText(skills);
+                tutorwork_categ[i] = new JLabel(job[tutor_index.get(i)].get_work_category()[0]);
+                tutorid[i] = new JLabel(job[tutor_index.get(i)].get_id());
+                tutorcreatedDate[i] = new JLabel(String.valueOf(job[tutor_index.get(i)].get_createdAt()));
+                
+
+                tutorjobPanel[i].setBackground(Color.LIGHT_GRAY);
+                tutorjobPanel[i].add(tutorcreatedDate[i]);
+                tutorjobPanel[i].add(tutortitle[i]);
+                tutorjobPanel[i].add(tutordesc[i]);
+                tutorjobPanel[i].add(tutorhour_rate[i]);
+                tutorjobPanel[i].add(tutorworkHour[i]);
+                tutorjobPanel[i].add(tutorpref_skill[i]);
+                tutorjobPanel[i].add(tutorwork_categ[i]);
+                tutorjobPanel[i].add(tutorid[i]);
+                
+                tutorjobPanel[i].setLayout(new BoxLayout(tutorjobPanel[i], BoxLayout.Y_AXIS));
+                tutorJob.add(tutorjobPanel[i]);
+                tutorJob.add(Box.createRigidArea(new Dimension(0,25)));
+                
+            }
+          
+           jScrollPane2.getViewport().add(allJobs);
+           campusScroll.getViewport().add(campusJob);
+           foodScroll.getViewport().add(foodServiceJob);
+           tutorScroll.getViewport().add(tutorJob);
+
         } catch (Exception e){ 
             e.printStackTrace();
         }
@@ -208,9 +370,13 @@ public class GigFinder extends javax.swing.JFrame {
         campusBtn = new javax.swing.JButton();
         labelJoblist = new javax.swing.JLabel();
         JobsPanel = new javax.swing.JPanel();
+        campusScroll = new javax.swing.JScrollPane();
         campusJob = new javax.swing.JPanel();
+        tutorScroll = new javax.swing.JScrollPane();
         tutorJob = new javax.swing.JPanel();
+        foodScroll = new javax.swing.JScrollPane();
         foodServiceJob = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         allJobs = new javax.swing.JPanel();
         LoginPage = new javax.swing.JPanel();
         email = new javax.swing.JTextField();
@@ -405,9 +571,9 @@ public class GigFinder extends javax.swing.JFrame {
                 .addComponent(profile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(aboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE)
                 .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(17, 17, 17))
         );
 
         aboutPanel.setBackground(new java.awt.Color(0, 94, 129));
@@ -426,12 +592,10 @@ public class GigFinder extends javax.swing.JFrame {
         aboutPanelLayout.setHorizontalGroup(
             aboutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(aboutPanelLayout.createSequentialGroup()
-                .addContainerGap(123, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(124, Short.MAX_VALUE))
-            .addGroup(aboutPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
+                .addGroup(aboutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         aboutPanelLayout.setVerticalGroup(
@@ -589,89 +753,145 @@ public class GigFinder extends javax.swing.JFrame {
         labelJoblist.setText("Available Job for you!");
 
         JobsPanel.setBackground(new java.awt.Color(0, 94, 129));
-        JobsPanel.setPreferredSize(new java.awt.Dimension(800, 485));
+        JobsPanel.setPreferredSize(new java.awt.Dimension(790, 2000));
+
+        campusScroll.setForeground(new java.awt.Color(0, 94, 129));
+        campusScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        campusScroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        campusScroll.setViewportBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        campusScroll.setMinimumSize(new java.awt.Dimension(790, 485));
+        campusScroll.setPreferredSize(new java.awt.Dimension(790, 2000));
 
         campusJob.setBackground(new java.awt.Color(255, 204, 204));
+        campusJob.setForeground(new java.awt.Color(0, 94, 129));
+        campusJob.setMinimumSize(new java.awt.Dimension(770, 400));
+        campusJob.setPreferredSize(new java.awt.Dimension(770, 700));
         campusJob.setVisible(false);
 
         javax.swing.GroupLayout campusJobLayout = new javax.swing.GroupLayout(campusJob);
         campusJob.setLayout(campusJobLayout);
         campusJobLayout.setHorizontalGroup(
             campusJobLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 778, Short.MAX_VALUE)
         );
         campusJobLayout.setVerticalGroup(
             campusJobLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
         );
 
+        campusScroll.setViewportView(campusJob);
+
+        tutorScroll.setForeground(new java.awt.Color(0, 94, 129));
+        tutorScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        tutorScroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        tutorScroll.setViewportBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        tutorScroll.setMinimumSize(new java.awt.Dimension(790, 485));
+        tutorScroll.setPreferredSize(new java.awt.Dimension(790, 2000));
+
         tutorJob.setBackground(new java.awt.Color(255, 204, 0));
+        tutorJob.setForeground(new java.awt.Color(0, 94, 129));
+        tutorJob.setMinimumSize(new java.awt.Dimension(770, 400));
+        tutorJob.setPreferredSize(new java.awt.Dimension(770, 700));
 
         javax.swing.GroupLayout tutorJobLayout = new javax.swing.GroupLayout(tutorJob);
         tutorJob.setLayout(tutorJobLayout);
         tutorJobLayout.setHorizontalGroup(
             tutorJobLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 778, Short.MAX_VALUE)
         );
         tutorJobLayout.setVerticalGroup(
             tutorJobLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
         );
 
+        tutorScroll.setViewportView(tutorJob);
+        tutorJob.setVisible(false);
+
+        foodScroll.setForeground(new java.awt.Color(0, 94, 129));
+        foodScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        foodScroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        foodScroll.setViewportBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        foodScroll.setMinimumSize(new java.awt.Dimension(800, 485));
+        foodScroll.setPreferredSize(new java.awt.Dimension(790, 2000));
+
         foodServiceJob.setBackground(new java.awt.Color(0, 204, 204));
+        foodServiceJob.setForeground(new java.awt.Color(0, 94, 129));
+        foodServiceJob.setMinimumSize(new java.awt.Dimension(770, 400));
+        foodServiceJob.setName(""); // NOI18N
+        foodServiceJob.setPreferredSize(new java.awt.Dimension(770, 700));
 
         javax.swing.GroupLayout foodServiceJobLayout = new javax.swing.GroupLayout(foodServiceJob);
         foodServiceJob.setLayout(foodServiceJobLayout);
         foodServiceJobLayout.setHorizontalGroup(
             foodServiceJobLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 778, Short.MAX_VALUE)
         );
         foodServiceJobLayout.setVerticalGroup(
             foodServiceJobLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
         );
 
+        foodScroll.setViewportView(foodServiceJob);
+        foodServiceJob.setVisible(false);
+
+        jScrollPane2.setForeground(new java.awt.Color(0, 94, 129));
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setViewportBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jScrollPane2.setMinimumSize(new java.awt.Dimension(790, 485));
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(790, 2000));
+
         allJobs.setBackground(new java.awt.Color(0, 94, 129));
-        allJobs.setPreferredSize(new java.awt.Dimension(800, 485));
+        allJobs.setForeground(new java.awt.Color(0, 94, 129));
+        allJobs.setMinimumSize(new java.awt.Dimension(770, 400));
+        allJobs.setPreferredSize(new java.awt.Dimension(770, 1900));
 
         javax.swing.GroupLayout allJobsLayout = new javax.swing.GroupLayout(allJobs);
         allJobs.setLayout(allJobsLayout);
         allJobsLayout.setHorizontalGroup(
             allJobsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 779, Short.MAX_VALUE)
         );
         allJobsLayout.setVerticalGroup(
             allJobsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
+            .addGap(0, 1900, Short.MAX_VALUE)
         );
+
+        jScrollPane2.setViewportView(allJobs);
 
         javax.swing.GroupLayout JobsPanelLayout = new javax.swing.GroupLayout(JobsPanel);
         JobsPanel.setLayout(JobsPanelLayout);
         JobsPanelLayout.setHorizontalGroup(
             JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JobsPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(allJobs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(JobsPanelLayout.createSequentialGroup()
+                .addComponent(campusScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(foodServiceJob, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(JobsPanelLayout.createSequentialGroup()
+                    .addComponent(tutorScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 7, Short.MAX_VALUE)))
             .addGroup(JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(tutorJob, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(JobsPanelLayout.createSequentialGroup()
+                    .addGap(1, 1, 1)
+                    .addComponent(foodScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(campusJob, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(JobsPanelLayout.createSequentialGroup()
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         JobsPanelLayout.setVerticalGroup(
             JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(allJobs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+            .addComponent(campusScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
             .addGroup(JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(foodServiceJob, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(tutorScroll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(tutorJob, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(foodScroll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(campusJob, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JobsPanelLayout.createSequentialGroup()
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1994, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
-
-        tutorJob.setVisible(false);
-        foodServiceJob.setVisible(false);
 
         javax.swing.GroupLayout findworkPanelLayout = new javax.swing.GroupLayout(findworkPanel);
         findworkPanel.setLayout(findworkPanelLayout);
@@ -693,11 +913,10 @@ public class GigFinder extends javax.swing.JFrame {
                         .addComponent(campusBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(findworkPanelLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(labelJoblist))
-                    .addGroup(findworkPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(JobsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(17, 17, 17))
+                        .addGroup(findworkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JobsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelJoblist))))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         findworkPanelLayout.setVerticalGroup(
             findworkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -713,17 +932,15 @@ public class GigFinder extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(labelJoblist)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JobsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(JobsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLayout.createSequentialGroup()
-                .addComponent(findworkPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(findworkPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(profilePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -757,7 +974,7 @@ public class GigFinder extends javax.swing.JFrame {
 
         email.setForeground(new java.awt.Color(153, 153, 153));
         email.setText(" Enter Email");
-        email.setBorder(null);
+        email.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         email.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         email.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -767,10 +984,15 @@ public class GigFinder extends javax.swing.JFrame {
                 emailFocusLost(evt);
             }
         });
+        email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailActionPerformed(evt);
+            }
+        });
 
         password.setForeground(new java.awt.Color(153, 153, 153));
         password.setText(" Enter Password");
-        password.setBorder(null);
+        password.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         password.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 passwordFocusGained(evt);
@@ -780,7 +1002,7 @@ public class GigFinder extends javax.swing.JFrame {
             }
         });
 
-        login.setText("login");
+        login.setText("Login");
         login.setBorder(null);
         login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -803,13 +1025,13 @@ public class GigFinder extends javax.swing.JFrame {
         LoginPageLayout.setVerticalGroup(
             LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LoginPageLayout.createSequentialGroup()
-                .addContainerGap(225, Short.MAX_VALUE)
+                .addContainerGap(245, Short.MAX_VALUE)
                 .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addContainerGap(244, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -824,7 +1046,7 @@ public class GigFinder extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 620, Short.MAX_VALUE)
+            .addGap(0, 660, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(Shomepage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -968,14 +1190,25 @@ public class GigFinder extends javax.swing.JFrame {
 
     private void allBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allBtnActionPerformed
         // TODO add your handling code here:
+        campusScroll.setVisible(false);
+        jScrollPane2.setVisible(true);
+        tutorScroll.setVisible(false);
+        foodScroll.setVisible(false);
+        
         allJobs.setVisible(true);
         tutorJob.setVisible(false);
         campusJob.setVisible(false);
         foodServiceJob.setVisible(false);
+        
     }//GEN-LAST:event_allBtnActionPerformed
 
     private void foodserviceBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodserviceBtnActionPerformed
         // TODO add your handling code here:
+        campusScroll.setVisible(false);
+        jScrollPane2.setVisible(false);
+        tutorScroll.setVisible(false);
+        foodScroll.setVisible(true);
+        
         allJobs.setVisible(false);
         tutorJob.setVisible(false);
         campusJob.setVisible(false);
@@ -984,6 +1217,11 @@ public class GigFinder extends javax.swing.JFrame {
 
     private void tutorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tutorBtnActionPerformed
         // TODO add your handling code here:
+        campusScroll.setVisible(false);
+        jScrollPane2.setVisible(false);
+        tutorScroll.setVisible(true);
+        foodScroll.setVisible(false);
+        
         allJobs.setVisible(false);
         tutorJob.setVisible(true);
         campusJob.setVisible(false);
@@ -992,11 +1230,20 @@ public class GigFinder extends javax.swing.JFrame {
 
     private void campusBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campusBtnActionPerformed
         // TODO add your handling code here:
+        campusScroll.setVisible(true);
+        jScrollPane2.setVisible(false);
+        tutorScroll.setVisible(false);
+        foodScroll.setVisible(false);
+        
         allJobs.setVisible(false);
         tutorJob.setVisible(false);
         campusJob.setVisible(true);
         foodServiceJob.setVisible(false);
     }//GEN-LAST:event_campusBtnActionPerformed
+
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailActionPerformed
  
     public static void main(String args[]) {
         
@@ -1032,17 +1279,20 @@ public class GigFinder extends javax.swing.JFrame {
     private javax.swing.JLabel brandName;
     private javax.swing.JButton campusBtn;
     private javax.swing.JPanel campusJob;
+    private javax.swing.JScrollPane campusScroll;
     private javax.swing.JLabel categoriesLabel;
     private javax.swing.JLabel company;
     private javax.swing.JTextField email;
     private javax.swing.JButton findWork;
     private javax.swing.JPanel findworkPanel;
+    private javax.swing.JScrollPane foodScroll;
     private javax.swing.JPanel foodServiceJob;
     private javax.swing.JButton foodserviceBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelJoblist;
     private javax.swing.JButton login;
     private javax.swing.JLabel logo;
@@ -1057,5 +1307,6 @@ public class GigFinder extends javax.swing.JFrame {
     private javax.swing.JLabel skills;
     private javax.swing.JButton tutorBtn;
     private javax.swing.JPanel tutorJob;
+    private javax.swing.JScrollPane tutorScroll;
     // End of variables declaration//GEN-END:variables
 }
