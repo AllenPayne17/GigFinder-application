@@ -339,6 +339,15 @@ public class GigFinder extends javax.swing.JFrame {
         Bprofile = new javax.swing.JButton();
         BaboutUs = new javax.swing.JButton();
         Blogout = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        allPostPanel = new javax.swing.JPanel();
+        postPanel = new javax.swing.JPanel();
+        bProfilePanel = new javax.swing.JPanel();
+        bAboutPanel = new javax.swing.JPanel();
+        LoginPage = new javax.swing.JPanel();
+        email = new javax.swing.JTextField();
+        password = new javax.swing.JTextField();
+        login = new javax.swing.JButton();
         Shomepage = new javax.swing.JPanel();
         Ssidebar = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
@@ -378,10 +387,12 @@ public class GigFinder extends javax.swing.JFrame {
         foodServiceJob = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         allJobs = new javax.swing.JPanel();
-        LoginPage = new javax.swing.JPanel();
-        email = new javax.swing.JTextField();
-        password = new javax.swing.JTextField();
-        login = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("GigFinder");
+        setLocation(new java.awt.Point(0, 0));
+        setResizable(false);
+        setSize(new java.awt.Dimension(0, 0));
 
         Bhomepage.setBackground(new java.awt.Color(0, 94, 129));
         Bhomepage.setVisible(false);
@@ -401,6 +412,11 @@ public class GigFinder extends javax.swing.JFrame {
         BallPost.setText("All post");
         BallPost.setFocusPainted(false);
         BallPost.setBorder(null);
+        BallPost.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BallPostActionPerformed(evt);
+            }
+        });
 
         Bpost.setBackground(new java.awt.Color(255, 255, 255));
         Bpost.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -408,6 +424,11 @@ public class GigFinder extends javax.swing.JFrame {
         Bpost.setText("Post");
         Bpost.setFocusPainted(false);
         Bpost.setBorder(null);
+        Bpost.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BpostActionPerformed(evt);
+            }
+        });
 
         Bprofile.setBackground(new java.awt.Color(255, 255, 255));
         Bprofile.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -415,6 +436,11 @@ public class GigFinder extends javax.swing.JFrame {
         Bprofile.setText("Profile");
         Bprofile.setBorder(null);
         Bprofile.setFocusPainted(false);
+        Bprofile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BprofileActionPerformed(evt);
+            }
+        });
 
         BaboutUs.setBackground(new java.awt.Color(255, 255, 255));
         BaboutUs.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -422,6 +448,11 @@ public class GigFinder extends javax.swing.JFrame {
         BaboutUs.setText("About Us");
         BaboutUs.setBorder(null);
         BaboutUs.setFocusPainted(false);
+        BaboutUs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BaboutUsActionPerformed(evt);
+            }
+        });
 
         Blogout.setBackground(new java.awt.Color(255, 255, 255));
         Blogout.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -463,9 +494,92 @@ public class GigFinder extends javax.swing.JFrame {
                 .addComponent(Bprofile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
                 .addComponent(BaboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
                 .addComponent(Blogout, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+        );
+
+        jPanel1.setBackground(new java.awt.Color(0, 94, 129));
+
+        allPostPanel.setBackground(new java.awt.Color(204, 255, 204));
+        allPostPanel.setVisible(true);
+
+        javax.swing.GroupLayout allPostPanelLayout = new javax.swing.GroupLayout(allPostPanel);
+        allPostPanel.setLayout(allPostPanelLayout);
+        allPostPanelLayout.setHorizontalGroup(
+            allPostPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 826, Short.MAX_VALUE)
+        );
+        allPostPanelLayout.setVerticalGroup(
+            allPostPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 620, Short.MAX_VALUE)
+        );
+
+        postPanel.setBackground(new java.awt.Color(51, 255, 204));
+        postPanel.setVisible(false);
+
+        javax.swing.GroupLayout postPanelLayout = new javax.swing.GroupLayout(postPanel);
+        postPanel.setLayout(postPanelLayout);
+        postPanelLayout.setHorizontalGroup(
+            postPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 826, Short.MAX_VALUE)
+        );
+        postPanelLayout.setVerticalGroup(
+            postPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 620, Short.MAX_VALUE)
+        );
+
+        bProfilePanel.setBackground(new java.awt.Color(255, 255, 153));
+        bProfilePanel.setVisible(false);
+
+        javax.swing.GroupLayout bProfilePanelLayout = new javax.swing.GroupLayout(bProfilePanel);
+        bProfilePanel.setLayout(bProfilePanelLayout);
+        bProfilePanelLayout.setHorizontalGroup(
+            bProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 826, Short.MAX_VALUE)
+        );
+        bProfilePanelLayout.setVerticalGroup(
+            bProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 620, Short.MAX_VALUE)
+        );
+
+        bAboutPanel.setBackground(new java.awt.Color(255, 204, 204));
+        bAboutPanel.setVisible(false);
+
+        javax.swing.GroupLayout bAboutPanelLayout = new javax.swing.GroupLayout(bAboutPanel);
+        bAboutPanel.setLayout(bAboutPanelLayout);
+        bAboutPanelLayout.setHorizontalGroup(
+            bAboutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 826, Short.MAX_VALUE)
+        );
+        bAboutPanelLayout.setVerticalGroup(
+            bAboutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 620, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(bAboutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(bProfilePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(postPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(allPostPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(bAboutPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(bProfilePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(postPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(allPostPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout BhomepageLayout = new javax.swing.GroupLayout(Bhomepage);
@@ -474,18 +588,78 @@ public class GigFinder extends javax.swing.JFrame {
             BhomepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BhomepageLayout.createSequentialGroup()
                 .addComponent(Bsidebar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(808, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         BhomepageLayout.setVerticalGroup(
             BhomepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Bsidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+            .addComponent(Bsidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("GigFinder");
-        setLocation(new java.awt.Point(0, 0));
-        setResizable(false);
-        setSize(new java.awt.Dimension(0, 0));
+        LoginPage.setBackground(new java.awt.Color(0, 94, 129));
+
+        email.setForeground(new java.awt.Color(153, 153, 153));
+        email.setText(" Enter Email");
+        email.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        email.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        email.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                emailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                emailFocusLost(evt);
+            }
+        });
+        email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailActionPerformed(evt);
+            }
+        });
+
+        password.setForeground(new java.awt.Color(153, 153, 153));
+        password.setText(" Enter Password");
+        password.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        password.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passwordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passwordFocusLost(evt);
+            }
+        });
+
+        login.setText("Login");
+        login.setBorder(null);
+        login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout LoginPageLayout = new javax.swing.GroupLayout(LoginPage);
+        LoginPage.setLayout(LoginPageLayout);
+        LoginPageLayout.setHorizontalGroup(
+            LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoginPageLayout.createSequentialGroup()
+                .addContainerGap(352, Short.MAX_VALUE)
+                .addGroup(LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(367, Short.MAX_VALUE))
+        );
+        LoginPageLayout.setVerticalGroup(
+            LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoginPageLayout.createSequentialGroup()
+                .addContainerGap(215, Short.MAX_VALUE)
+                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(234, Short.MAX_VALUE))
+        );
 
         Shomepage.setBackground(new java.awt.Color(0, 94, 129));
         Shomepage.setVisible(false);
@@ -571,7 +745,7 @@ public class GigFinder extends javax.swing.JFrame {
                 .addComponent(profile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(aboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
                 .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
@@ -882,7 +1056,7 @@ public class GigFinder extends javax.swing.JFrame {
         );
         JobsPanelLayout.setVerticalGroup(
             JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(campusScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+            .addComponent(campusScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(tutorScroll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -916,7 +1090,7 @@ public class GigFinder extends javax.swing.JFrame {
                         .addGroup(findworkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(JobsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelJoblist))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         findworkPanelLayout.setVerticalGroup(
             findworkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -932,7 +1106,7 @@ public class GigFinder extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(labelJoblist)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JobsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                .addComponent(JobsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                 .addGap(16, 16, 16))
         );
 
@@ -970,87 +1144,29 @@ public class GigFinder extends javax.swing.JFrame {
             .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        LoginPage.setBackground(new java.awt.Color(0, 94, 129));
-
-        email.setForeground(new java.awt.Color(153, 153, 153));
-        email.setText(" Enter Email");
-        email.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        email.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        email.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                emailFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                emailFocusLost(evt);
-            }
-        });
-        email.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailActionPerformed(evt);
-            }
-        });
-
-        password.setForeground(new java.awt.Color(153, 153, 153));
-        password.setText(" Enter Password");
-        password.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        password.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                passwordFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                passwordFocusLost(evt);
-            }
-        });
-
-        login.setText("Login");
-        login.setBorder(null);
-        login.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout LoginPageLayout = new javax.swing.GroupLayout(LoginPage);
-        LoginPage.setLayout(LoginPageLayout);
-        LoginPageLayout.setHorizontalGroup(
-            LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LoginPageLayout.createSequentialGroup()
-                .addContainerGap(359, Short.MAX_VALUE)
-                .addGroup(LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(363, Short.MAX_VALUE))
-        );
-        LoginPageLayout.setVerticalGroup(
-            LoginPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LoginPageLayout.createSequentialGroup()
-                .addContainerGap(245, Short.MAX_VALUE)
-                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(244, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1004, Short.MAX_VALUE)
+            .addGap(0, 1001, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(Bhomepage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(LoginPage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(Shomepage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(LoginPage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 660, Short.MAX_VALUE)
+            .addGap(0, 620, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(Shomepage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Bhomepage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(LoginPage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(Shomepage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(1014, 657));
@@ -1244,6 +1360,38 @@ public class GigFinder extends javax.swing.JFrame {
     private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailActionPerformed
+
+    private void BallPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BallPostActionPerformed
+        // TODO add your handling code here:
+        allPostPanel.setVisible(true);
+        postPanel.setVisible(false);
+        bProfilePanel.setVisible(false);
+        bAboutPanel.setVisible(false);
+    }//GEN-LAST:event_BallPostActionPerformed
+
+    private void BpostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpostActionPerformed
+        // TODO add your handling code here:
+        allPostPanel.setVisible(false);
+        postPanel.setVisible(true);
+        bProfilePanel.setVisible(false);
+        bAboutPanel.setVisible(false);
+    }//GEN-LAST:event_BpostActionPerformed
+
+    private void BprofileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BprofileActionPerformed
+        // TODO add your handling code here:
+        allPostPanel.setVisible(false);
+        postPanel.setVisible(false);
+        bProfilePanel.setVisible(true);
+        bAboutPanel.setVisible(false);
+    }//GEN-LAST:event_BprofileActionPerformed
+
+    private void BaboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BaboutUsActionPerformed
+        // TODO add your handling code here:
+        allPostPanel.setVisible(false);
+        postPanel.setVisible(false);
+        bProfilePanel.setVisible(false);
+        bAboutPanel.setVisible(true);
+    }//GEN-LAST:event_BaboutUsActionPerformed
  
     public static void main(String args[]) {
         
@@ -1275,6 +1423,9 @@ public class GigFinder extends javax.swing.JFrame {
     private javax.swing.JLabel address;
     private javax.swing.JButton allBtn;
     private javax.swing.JPanel allJobs;
+    private javax.swing.JPanel allPostPanel;
+    private javax.swing.JPanel bAboutPanel;
+    private javax.swing.JPanel bProfilePanel;
     private javax.swing.JLabel bio;
     private javax.swing.JLabel brandName;
     private javax.swing.JButton campusBtn;
@@ -1292,6 +1443,7 @@ public class GigFinder extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelJoblist;
     private javax.swing.JButton login;
@@ -1301,6 +1453,7 @@ public class GigFinder extends javax.swing.JFrame {
     private javax.swing.JPanel panel;
     private javax.swing.JTextField password;
     private javax.swing.JLabel position;
+    private javax.swing.JPanel postPanel;
     private javax.swing.JButton profile;
     private javax.swing.JPanel profilePanel;
     private javax.swing.JLabel profilePic;
