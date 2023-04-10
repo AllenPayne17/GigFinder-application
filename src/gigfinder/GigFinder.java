@@ -343,6 +343,10 @@ public class GigFinder extends javax.swing.JFrame {
         allPostPanel = new javax.swing.JPanel();
         postPanel = new javax.swing.JPanel();
         bProfilePanel = new javax.swing.JPanel();
+        BprofilePic = new javax.swing.JLabel();
+        companyName = new javax.swing.JLabel();
+        badress = new javax.swing.JLabel();
+        bbio = new javax.swing.JLabel();
         bAboutPanel = new javax.swing.JPanel();
         LoginPage = new javax.swing.JPanel();
         email = new javax.swing.JTextField();
@@ -494,7 +498,7 @@ public class GigFinder extends javax.swing.JFrame {
                 .addComponent(Bprofile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
                 .addComponent(BaboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Blogout, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -532,15 +536,52 @@ public class GigFinder extends javax.swing.JFrame {
         bProfilePanel.setBackground(new java.awt.Color(255, 255, 153));
         bProfilePanel.setVisible(false);
 
+        BprofilePic.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        companyName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        companyName.setText("John Allen Salapayne");
+
+        badress.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        badress.setText("adresss");
+
+        bbio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        bbio.setText("jLabel5");
+
+        bProfilePanel.setSize(826, 620);
+
         javax.swing.GroupLayout bProfilePanelLayout = new javax.swing.GroupLayout(bProfilePanel);
         bProfilePanel.setLayout(bProfilePanelLayout);
         bProfilePanelLayout.setHorizontalGroup(
             bProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 826, Short.MAX_VALUE)
+            .addGroup(bProfilePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(badress)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(bProfilePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bbio)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bProfilePanelLayout.createSequentialGroup()
+                .addContainerGap(366, Short.MAX_VALUE)
+                .addComponent(companyName)
+                .addContainerGap(364, Short.MAX_VALUE))
+            .addGroup(bProfilePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BprofilePic, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         bProfilePanelLayout.setVerticalGroup(
             bProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 620, Short.MAX_VALUE)
+            .addGroup(bProfilePanelLayout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(BprofilePic, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(companyName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(badress)
+                .addGap(47, 47, 47)
+                .addComponent(bbio)
+                .addContainerGap(220, Short.MAX_VALUE))
         );
 
         bAboutPanel.setBackground(new java.awt.Color(255, 204, 204));
@@ -565,7 +606,7 @@ public class GigFinder extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(bAboutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(bProfilePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(bProfilePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(postPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1181,7 +1222,7 @@ public class GigFinder extends javax.swing.JFrame {
         var pass = password.getText();
         try {
             //user
-            String response = apiCLient.loginUser("johndoe@gmail.com", "mypassword");
+            String response = apiCLient.loginUser("johndoe@gmail.com", "mysecretpassword");
             System.out.println(response);
             
    
@@ -1233,6 +1274,18 @@ public class GigFinder extends javax.swing.JFrame {
                 LoginPage.setVisible(false);
                 Bhomepage.setVisible(true);
                 
+                try {
+                    URL url = new URL(Owner.getProfile().getProfile_pic());
+                    BufferedImage image = ImageIO.read(url);
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(profilePic.getWidth(), profilePic.getHeight(), Image.SCALE_SMOOTH));
+                    BprofilePic.setIcon(icon);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                
+                companyName.setText(Owner.getProfile().getCompany_name());
+                badress.setText(Owner.getProfile().getAddress());
+                bbio.setText(Owner.getProfile().getAboutUs());
             }
 
         } catch (IOException e) {
@@ -1412,6 +1465,7 @@ public class GigFinder extends javax.swing.JFrame {
     private javax.swing.JButton Blogout;
     private javax.swing.JButton Bpost;
     private javax.swing.JButton Bprofile;
+    private javax.swing.JLabel BprofilePic;
     private javax.swing.JPanel Bsidebar;
     private javax.swing.JPanel JobsPanel;
     private javax.swing.JPanel LoginPage;
@@ -1426,6 +1480,8 @@ public class GigFinder extends javax.swing.JFrame {
     private javax.swing.JPanel allPostPanel;
     private javax.swing.JPanel bAboutPanel;
     private javax.swing.JPanel bProfilePanel;
+    private javax.swing.JLabel badress;
+    private javax.swing.JLabel bbio;
     private javax.swing.JLabel bio;
     private javax.swing.JLabel brandName;
     private javax.swing.JButton campusBtn;
@@ -1433,6 +1489,7 @@ public class GigFinder extends javax.swing.JFrame {
     private javax.swing.JScrollPane campusScroll;
     private javax.swing.JLabel categoriesLabel;
     private javax.swing.JLabel company;
+    private javax.swing.JLabel companyName;
     private javax.swing.JTextField email;
     private javax.swing.JButton findWork;
     private javax.swing.JPanel findworkPanel;
