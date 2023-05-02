@@ -25,10 +25,13 @@ import javax.swing.JPanel;
 
 
 public class GigFinder extends javax.swing.JFrame {
-    
+    Job[] job;
+    ArrayList<Integer> on_campus_index = new ArrayList<>();
+    ArrayList<Integer> food_service_index = new ArrayList<>();
+    ArrayList<Integer> tutor_index = new ArrayList<>();
+    int[] date_index;
     
     public GigFinder() {
-        
         try {
             URL url = new URL("https://gigfinder.onrender.com/api/job-posts");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -44,13 +47,10 @@ public class GigFinder extends javax.swing.JFrame {
 
             Gson gson = new Gson();
             
-            Job[] job = gson.fromJson(data.toString(), Job[].class);
+            job = gson.fromJson(data.toString(), Job[].class);
             
-            int[] date_index = new int[job.length];
+            date_index = new int[job.length];
             Date[] date_created = new Date[job.length]; 
-            ArrayList<Integer> on_campus_index = new ArrayList<>();
-            ArrayList<Integer> food_service_index = new ArrayList<>();
-            ArrayList<Integer> tutor_index = new ArrayList<>();
            
             for(int i = 0; i < job.length ; i++){
                date_index[i] = i;
@@ -71,43 +71,31 @@ public class GigFinder extends javax.swing.JFrame {
             }
 
             quickSort(date_created, 0, job.length -1, date_index);
-
-            JPanel[] jobPanel = new JPanel[job.length];
-            JPanel[] campusjobPanel = new JPanel[on_campus_index.size()];
-            JPanel[] tutorjobPanel = new JPanel[tutor_index.size()];
-            JPanel[] foodjobPanel = new JPanel[food_service_index.size()];
-            
-            JLabel[] title = new JLabel[job.length];
-            JLabel[] desc = new JLabel[job.length];
-            JLabel[] hour_rate = new JLabel[job.length];
-            JLabel[] workHour = new JLabel[job.length];
-            JLabel[] pref_skill = new JLabel[job.length];   
-            
-            JLabel[] campustitle = new JLabel[on_campus_index.size()];
-            JLabel[] campusdesc = new JLabel[on_campus_index.size()];
-            JLabel[] campushour_rate = new JLabel[on_campus_index.size()];
-            JLabel[] campusworkHour = new JLabel[on_campus_index.size()];
-            JLabel[] campuspref_skill = new JLabel[on_campus_index.size()];
-           
-            JLabel[] foodtitle = new JLabel[food_service_index.size()];
-            JLabel[] fooddesc = new JLabel[food_service_index.size()];
-            JLabel[] foodhour_rate = new JLabel[food_service_index.size()];
-            JLabel[] foodworkHour = new JLabel[food_service_index.size()];
-            JLabel[] foodpref_skill = new JLabel[food_service_index.size()];
-           
-            JLabel[] tutortitle = new JLabel[tutor_index.size()];
-            JLabel[] tutordesc = new JLabel[tutor_index.size()];
-            JLabel[] tutorhour_rate = new JLabel[tutor_index.size()];
-            JLabel[] tutorworkHour = new JLabel[tutor_index.size()];
-            JLabel[] tutorpref_skill = new JLabel[tutor_index.size()];
-           
             initComponents();
-            getContentPane().add(jScrollPane2);
-            getContentPane().add(allJobs, BorderLayout.CENTER);
-            allJobs.setLayout(new BoxLayout(allJobs, BoxLayout.Y_AXIS));
-            jScrollPane2.setVisible(true);
-            
- 
+            setAll();
+            setFood();
+            setTutor();
+            setOnCampus();
+        } catch (Exception e){ 
+            e.printStackTrace();
+        }  
+    }
+    
+    public void setAll(){
+        
+        JPanel[] jobPanel = new JPanel[job.length];
+        JLabel[] title = new JLabel[job.length];
+        JLabel[] desc = new JLabel[job.length];
+        JLabel[] hour_rate = new JLabel[job.length];
+        JLabel[] workHour = new JLabel[job.length];
+        JLabel[] pref_skill = new JLabel[job.length]; 
+        
+        
+        getContentPane().add(jScrollPane2);
+        getContentPane().add(allJobs, BorderLayout.CENTER);
+        allJobs.setLayout(new BoxLayout(allJobs, BoxLayout.Y_AXIS));
+        jScrollPane2.setVisible(true);
+
             for(int i = 0; i < job.length; i++){
                 jobPanel[i] = new JPanel();
                 title[i] = new JLabel(job[date_index[i]].get_job_title());
@@ -138,12 +126,113 @@ public class GigFinder extends javax.swing.JFrame {
                 allJobs.add(Box.createRigidArea(new Dimension(0,25)));
                 
             }
+           jScrollPane2.getViewport().add(allJobs);
+    }
+    
+    public void setFood(){
+        
+        JLabel[] foodtitle = new JLabel[food_service_index.size()];
+        JLabel[] fooddesc = new JLabel[food_service_index.size()];
+        JLabel[] foodhour_rate = new JLabel[food_service_index.size()];
+        JLabel[] foodworkHour = new JLabel[food_service_index.size()];
+        JLabel[] foodpref_skill = new JLabel[food_service_index.size()];
+         
+        getContentPane().add(jScrollPane2);
+        JPanel[] foodjobPanel = new JPanel[food_service_index.size()];
+        
+        getContentPane().add(foodScroll);
+        getContentPane().add(foodServiceJob, BorderLayout.CENTER);
+        foodServiceJob.setLayout(new BoxLayout(foodServiceJob, BoxLayout.Y_AXIS));
            
+        for(int i = 0; i < food_service_index.size(); i++){
+            foodjobPanel[i] = new JPanel();
+                foodtitle[i] = new JLabel(job[food_service_index.get(i)].get_job_title());
+                fooddesc[i] = new JLabel(job[food_service_index.get(i)].get_job_description());
+                foodhour_rate[i] = new JLabel("Hourly Rate: $"+String.valueOf(job[food_service_index.get(i)].get_hourly_rate())+ "/hr");
+                foodworkHour[i] = new JLabel("Work Hours: " + String.valueOf(job[food_service_index.get(i)].get_workHours())+ "hrs/week");
+                foodpref_skill[i] = new JLabel();
+                 
+                String skills = "";
+                    for(String skill : job[food_service_index.get(i)].get_preferred_skills()){
+                         skills += skill + " "; // MAGDAGDAG NG , somwhere
+                    }
+                
+                foodpref_skill[i].setText("Preferred Skills: " + skills);
+                foodjobPanel[i].setBackground(new Color(61,214,196));
+
+                foodjobPanel[i].add(foodtitle[i]);
+                foodjobPanel[i].add(fooddesc[i]);
+                foodjobPanel[i].add(foodhour_rate[i]);
+                foodjobPanel[i].add(foodworkHour[i]);
+                foodjobPanel[i].add(foodpref_skill[i]);
+                
+                foodjobPanel[i].setLayout(new BoxLayout(foodjobPanel[i], BoxLayout.Y_AXIS));
+                foodServiceJob.add(foodjobPanel[i]);
+                foodServiceJob.add(Box.createRigidArea(new Dimension(0,25)));
+                
+            }
+        foodScroll.getViewport().add(foodServiceJob);
+    }
+    
+    public void setTutor(){
+
+        JPanel[] tutorjobPanel = new JPanel[tutor_index.size()];
+        
+        JLabel[] tutortitle = new JLabel[tutor_index.size()];
+        JLabel[] tutordesc = new JLabel[tutor_index.size()];
+        JLabel[] tutorhour_rate = new JLabel[tutor_index.size()];
+        JLabel[] tutorworkHour = new JLabel[tutor_index.size()];
+        JLabel[] tutorpref_skill = new JLabel[tutor_index.size()];
+        
+        getContentPane().add(jScrollPane2);
+        getContentPane().add(tutorScroll);
+           getContentPane().add(tutorJob, BorderLayout.CENTER);
+           tutorJob.setLayout(new BoxLayout(tutorJob, BoxLayout.Y_AXIS));
            
+           for(int i = 0; i < tutor_index.size(); i++){
+                tutorjobPanel[i] = new JPanel();
+                tutortitle[i] = new JLabel(job[tutor_index.get(i)].get_job_title());
+                tutordesc[i] = new JLabel(job[tutor_index.get(i)].get_job_description());
+                tutorhour_rate[i] = new JLabel("Hourly Rate: $" + String.valueOf(job[tutor_index.get(i)].get_hourly_rate())+ "/hr");
+                tutorworkHour[i] = new JLabel("Work Hours: " +String.valueOf(job[tutor_index.get(i)].get_workHours())+ "hrs/week");
+                tutorpref_skill[i] = new JLabel();
+                
+                String skills = "";
+                    for(String skill : job[tutor_index.get(i)].get_preferred_skills()){
+                         skills += skill + " "; // MAGDAGDAG NG , somwhere
+                    }
+                
+                tutorpref_skill[i].setText("Preferred Skills: " + skills);
+                tutorjobPanel[i].setBackground(new Color(61,214,196));
+                tutorjobPanel[i].add(tutortitle[i]);
+                tutorjobPanel[i].add(tutordesc[i]);
+                tutorjobPanel[i].add(tutorhour_rate[i]);
+                tutorjobPanel[i].add(tutorworkHour[i]);
+                tutorjobPanel[i].add(tutorpref_skill[i]);
+                
+                tutorjobPanel[i].setLayout(new BoxLayout(tutorjobPanel[i], BoxLayout.Y_AXIS));
+                tutorJob.add(tutorjobPanel[i]);
+                tutorJob.add(Box.createRigidArea(new Dimension(0,25)));
+                
+            }
+           tutorScroll.getViewport().add(tutorJob);
            
-           
-           getContentPane().add(campusScroll);
-           getContentPane().add(campusJob, BorderLayout.CENTER);
+    }
+        
+    public void setOnCampus(){
+        getContentPane().add(jScrollPane2);
+        JPanel[] campusjobPanel = new JPanel[on_campus_index.size()];
+        
+        JLabel[] campustitle = new JLabel[on_campus_index.size()];
+        JLabel[] campusdesc = new JLabel[on_campus_index.size()];
+        JLabel[] campushour_rate = new JLabel[on_campus_index.size()];
+        JLabel[] campusworkHour = new JLabel[on_campus_index.size()];
+        JLabel[] campuspref_skill = new JLabel[on_campus_index.size()];
+        
+        
+        
+        getContentPane().add(campusScroll);
+        getContentPane().add(campusJob, BorderLayout.CENTER);
            campusJob.setLayout(new BoxLayout(campusJob, BoxLayout.Y_AXIS));
            
            for(int i = 0; i < on_campus_index.size(); i++){
@@ -177,82 +266,9 @@ public class GigFinder extends javax.swing.JFrame {
                 
             }
            
-         
-           
-           
-           getContentPane().add(foodScroll);
-           getContentPane().add(foodServiceJob, BorderLayout.CENTER);
-           foodServiceJob.setLayout(new BoxLayout(foodServiceJob, BoxLayout.Y_AXIS));
-           
-           for(int i = 0; i < food_service_index.size(); i++){
-                foodjobPanel[i] = new JPanel();
-                foodtitle[i] = new JLabel(job[food_service_index.get(i)].get_job_title());
-                fooddesc[i] = new JLabel(job[food_service_index.get(i)].get_job_description());
-                foodhour_rate[i] = new JLabel("Hourly Rate: $"+String.valueOf(job[food_service_index.get(i)].get_hourly_rate())+ "/hr");
-                foodworkHour[i] = new JLabel("Work Hours: " + String.valueOf(job[food_service_index.get(i)].get_workHours())+ "hrs/week");
-                foodpref_skill[i] = new JLabel();
-                 
-                String skills = "";
-                    for(String skill : job[food_service_index.get(i)].get_preferred_skills()){
-                         skills += skill + " "; // MAGDAGDAG NG , somwhere
-                    }
-                
-                foodpref_skill[i].setText("Preferred Skills: " + skills);
-                foodjobPanel[i].setBackground(new Color(61,214,196));
-
-                foodjobPanel[i].add(foodtitle[i]);
-                foodjobPanel[i].add(fooddesc[i]);
-                foodjobPanel[i].add(foodhour_rate[i]);
-                foodjobPanel[i].add(foodworkHour[i]);
-                foodjobPanel[i].add(foodpref_skill[i]);
-                
-                foodjobPanel[i].setLayout(new BoxLayout(foodjobPanel[i], BoxLayout.Y_AXIS));
-                foodServiceJob.add(foodjobPanel[i]);
-                foodServiceJob.add(Box.createRigidArea(new Dimension(0,25)));
-                
-            }
-           
-           getContentPane().add(tutorScroll);
-           getContentPane().add(tutorJob, BorderLayout.CENTER);
-           tutorJob.setLayout(new BoxLayout(tutorJob, BoxLayout.Y_AXIS));
-           
-           for(int i = 0; i < tutor_index.size(); i++){
-                tutorjobPanel[i] = new JPanel();
-                tutortitle[i] = new JLabel(job[tutor_index.get(i)].get_job_title());
-                tutordesc[i] = new JLabel(job[tutor_index.get(i)].get_job_description());
-                tutorhour_rate[i] = new JLabel("Hourly Rate: $" + String.valueOf(job[tutor_index.get(i)].get_hourly_rate())+ "/hr");
-                tutorworkHour[i] = new JLabel("Work Hours: " +String.valueOf(job[tutor_index.get(i)].get_workHours())+ "hrs/week");
-                tutorpref_skill[i] = new JLabel();
-                
-                String skills = "";
-                    for(String skill : job[tutor_index.get(i)].get_preferred_skills()){
-                         skills += skill + " "; // MAGDAGDAG NG , somwhere
-                    }
-                
-                tutorpref_skill[i].setText("Preferred Skills: " + skills);
-                tutorjobPanel[i].setBackground(new Color(61,214,196));
-                tutorjobPanel[i].add(tutortitle[i]);
-                tutorjobPanel[i].add(tutordesc[i]);
-                tutorjobPanel[i].add(tutorhour_rate[i]);
-                tutorjobPanel[i].add(tutorworkHour[i]);
-                tutorjobPanel[i].add(tutorpref_skill[i]);
-                
-                tutorjobPanel[i].setLayout(new BoxLayout(tutorjobPanel[i], BoxLayout.Y_AXIS));
-                tutorJob.add(tutorjobPanel[i]);
-                tutorJob.add(Box.createRigidArea(new Dimension(0,25)));
-                
-            }
-          
-           jScrollPane2.getViewport().add(allJobs);
            campusScroll.getViewport().add(campusJob);
-           foodScroll.getViewport().add(foodServiceJob);
-           tutorScroll.getViewport().add(tutorJob);
-
-        } catch (Exception e){ 
-            e.printStackTrace();
-        }
-  
     }
+    
     
     static int partition(Date[] date_created, int low, int high, int[] date_index) {
     Date pivot = date_created[high];
@@ -288,6 +304,116 @@ public class GigFinder extends javax.swing.JFrame {
          quickSort(date_created, pi + 1, high, date_index);
         }
     }  
+   
+    
+    /*
+    LINKED LIST 
+    public class LinkedList {
+  
+    Node head; // head of list
+  
+    // Linked list Node.
+    // Node is a static nested class
+    // so main() can access it
+    static class Node {
+  
+        int data;
+        Node next;
+  
+        // Constructor
+        Node(int d)
+        {
+            data = d;
+            next = null;
+        }
+    }
+  
+    // Method to insert a new node
+    public static LinkedList insert(LinkedList list,
+                                    int data)
+    {
+        // Create a new node with given data
+        Node new_node = new Node(data);
+        new_node.next = null;
+  
+        // If the Linked List is empty,
+        // then make the new node as head
+        if (list.head == null) {
+            list.head = new_node;
+        }
+        else {
+            // Else traverse till the last node
+            // and insert the new_node there
+            Node last = list.head;
+            while (last.next != null) {
+                last = last.next;
+            }
+  
+            // Insert the new_node at last node
+            last.next = new_node;
+        }
+  
+        // Return the list by head
+        return list;
+    }
+  
+    // Method to print the LinkedList.
+    public static void printList(LinkedList list)
+    {
+        Node currNode = list.head;
+  
+        System.out.print("LinkedList: ");
+  
+        // Traverse through the LinkedList
+        while (currNode != null) {
+            // Print the data at current node
+            System.out.print(currNode.data + " ");
+  
+            // Go to next node
+            currNode = currNode.next;
+        }
+    }
+    */
+     
+    /*
+    BINARY TREE 
+    
+    class Node {
+    int value;
+    Node left;
+    Node right;
+
+    Node(int value) {
+        this.value = value;
+        right = null;
+        left = null;
+    }
+}
+    
+    private Node addRecursive(Node current, int value) {
+    if (current == null) {
+        return new Node(value);
+    }
+
+    if (value < current.value) {
+        current.left = addRecursive(current.left, value);
+    } else if (value > current.value) {
+        current.right = addRecursive(current.right, value);
+    } else {
+        // value already exists
+        return current;
+    }
+
+    return current;
+}
+    
+    public void add(int value) {
+    root = addRecursive(root, value);
+}
+    
+    */
+    
+    
     
     @SuppressWarnings("unchecked") 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -1263,7 +1389,7 @@ public class GigFinder extends javax.swing.JFrame {
             }
 
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "incorrect email or password", "wrong input", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Incorrect Email or Password", "Wrong Input", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_loginActionPerformed
 
@@ -1320,12 +1446,10 @@ public class GigFinder extends javax.swing.JFrame {
         profilePanel.setVisible(true);
         aboutPanel.setVisible(false);
         
-        
-        
     }//GEN-LAST:event_profileActionPerformed
 
     private void aboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutUsActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:    
         findworkPanel.setVisible(false);
         profilePanel.setVisible(false);
         aboutPanel.setVisible(true);
@@ -1333,6 +1457,8 @@ public class GigFinder extends javax.swing.JFrame {
 
     private void allBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allBtnActionPerformed
         // TODO add your handling code here:
+        Shomepage.revalidate();
+        Shomepage.repaint();
         campusScroll.setVisible(false);
         jScrollPane2.setVisible(true);
         tutorScroll.setVisible(false);
@@ -1347,6 +1473,8 @@ public class GigFinder extends javax.swing.JFrame {
 
     private void foodserviceBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodserviceBtnActionPerformed
         // TODO add your handling code here:
+        Shomepage.revalidate();
+        Shomepage.repaint();
         campusScroll.setVisible(false);
         jScrollPane2.setVisible(false);
         tutorScroll.setVisible(false);
@@ -1360,6 +1488,8 @@ public class GigFinder extends javax.swing.JFrame {
 
     private void tutorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tutorBtnActionPerformed
         // TODO add your handling code here:
+        Shomepage.revalidate();
+        Shomepage.repaint();
         campusScroll.setVisible(false);
         jScrollPane2.setVisible(false);
         tutorScroll.setVisible(true);
@@ -1373,6 +1503,9 @@ public class GigFinder extends javax.swing.JFrame {
 
     private void campusBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campusBtnActionPerformed
         // TODO add your handling code here:
+        Shomepage.revalidate();
+        Shomepage.repaint();
+        
         campusScroll.setVisible(true);
         jScrollPane2.setVisible(false);
         tutorScroll.setVisible(false);
