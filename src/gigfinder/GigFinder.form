@@ -1077,19 +1077,19 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="campusScroll" min="-2" max="-2" attributes="0"/>
+                              <Component id="campusScroll" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="tutorScroll" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tutorScroll" max="32767" attributes="0"/>
                                   <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                                  <Component id="foodScroll" min="-2" max="-2" attributes="0"/>
+                                  <Component id="foodScroll" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -1103,7 +1103,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="campusScroll" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="campusScroll" alignment="0" max="32767" attributes="0"/>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                               <Component id="tutorScroll" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -1163,12 +1163,12 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="786" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="780" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="494" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="350" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -1189,6 +1189,7 @@
                         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[790, 485]"/>
                         </Property>
+                        <Property name="name" type="java.lang.String" value="" noResource="true"/>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[790, 2000]"/>
                         </Property>
@@ -1218,7 +1219,7 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="786" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="783" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
@@ -1242,7 +1243,7 @@
                           </Border>
                         </Property>
                         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[800, 485]"/>
+                          <Dimension value="[790, 485]"/>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[790, 2000]"/>
@@ -1274,7 +1275,7 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="786" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="788" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
@@ -1328,12 +1329,12 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="787" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="778" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="1300" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="1998" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>

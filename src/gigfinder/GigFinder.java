@@ -13,7 +13,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -27,8 +29,10 @@ import javax.swing.JPanel;
 public class GigFinder extends javax.swing.JFrame {
     Job[] job;
     ArrayList<Integer> on_campus_index = new ArrayList<>();
-    ArrayList<Integer> food_service_index = new ArrayList<>();
-    ArrayList<Integer> tutor_index = new ArrayList<>();
+    Queue<Integer> food_service_index = new LinkedList<>();
+    LinkedList<Integer> tutor_index = new LinkedList<>();
+    
+
     int[] date_index;
     
     public GigFinder() {
@@ -63,7 +67,7 @@ public class GigFinder extends javax.swing.JFrame {
                         food_service_index.add(i);
                         break;
                     case "one-on-one tutor part-time job":
-                        tutor_index.add(i);
+                        tutor_index.addLast(i);
                         break;
                     default:
                         break;
@@ -143,19 +147,20 @@ public class GigFinder extends javax.swing.JFrame {
         getContentPane().add(foodScroll);
         getContentPane().add(foodServiceJob, BorderLayout.CENTER);
         foodServiceJob.setLayout(new BoxLayout(foodServiceJob, BoxLayout.Y_AXIS));
-           
-        for(int i = 0; i < food_service_index.size(); i++){
+        
+        int fs_size = food_service_index.size();
+        for(int i = 0; i < fs_size; i++){
             foodjobPanel[i] = new JPanel();
-                foodtitle[i] = new JLabel(job[food_service_index.get(i)].get_job_title());
-                fooddesc[i] = new JLabel(job[food_service_index.get(i)].get_job_description());
-                foodhour_rate[i] = new JLabel("Hourly Rate: $"+String.valueOf(job[food_service_index.get(i)].get_hourly_rate())+ "/hr");
-                foodworkHour[i] = new JLabel("Work Hours: " + String.valueOf(job[food_service_index.get(i)].get_workHours())+ "hrs/week");
-                foodpref_skill[i] = new JLabel();
+            foodtitle[i] = new JLabel(job[food_service_index.element()].get_job_title());
+            fooddesc[i] = new JLabel(job[food_service_index.element()].get_job_description());
+            foodhour_rate[i] = new JLabel("Hourly Rate: $"+String.valueOf(job[food_service_index.element()].get_hourly_rate())+ "/hr");
+            foodworkHour[i] = new JLabel("Work Hours: " + String.valueOf(job[food_service_index.element()].get_workHours())+ "hrs/week");
+            foodpref_skill[i] = new JLabel();
                  
-                String skills = "";
-                    for(String skill : job[food_service_index.get(i)].get_preferred_skills()){
-                         skills += skill + " "; // MAGDAGDAG NG , somwhere
-                    }
+            String skills = "";
+                for(String skill : job[food_service_index.element()].get_preferred_skills()){
+                    skills += skill + " ";
+                }
                 
                 foodpref_skill[i].setText("Preferred Skills: " + skills);
                 foodjobPanel[i].setBackground(new Color(61,214,196));
@@ -169,7 +174,7 @@ public class GigFinder extends javax.swing.JFrame {
                 foodjobPanel[i].setLayout(new BoxLayout(foodjobPanel[i], BoxLayout.Y_AXIS));
                 foodServiceJob.add(foodjobPanel[i]);
                 foodServiceJob.add(Box.createRigidArea(new Dimension(0,25)));
-                
+                food_service_index.remove();
             }
         foodScroll.getViewport().add(foodServiceJob);
     }
@@ -186,7 +191,7 @@ public class GigFinder extends javax.swing.JFrame {
         
         getContentPane().add(jScrollPane2);
         getContentPane().add(tutorScroll);
-           getContentPane().add(tutorJob, BorderLayout.CENTER);
+        getContentPane().add(tutorJob, BorderLayout.CENTER);
            tutorJob.setLayout(new BoxLayout(tutorJob, BoxLayout.Y_AXIS));
            
            for(int i = 0; i < tutor_index.size(); i++){
@@ -199,7 +204,7 @@ public class GigFinder extends javax.swing.JFrame {
                 
                 String skills = "";
                     for(String skill : job[tutor_index.get(i)].get_preferred_skills()){
-                         skills += skill + " "; // MAGDAGDAG NG , somwhere
+                         skills += skill + " ";
                     }
                 
                 tutorpref_skill[i].setText("Preferred Skills: " + skills);
@@ -247,7 +252,7 @@ public class GigFinder extends javax.swing.JFrame {
                 
                 String skills = "";
                     for(String skill : job[on_campus_index.get(i)].get_preferred_skills()){
-                         skills += skill + " "; // MAGDAGDAG NG , somwhere
+                         skills += skill + " "; 
                     }
                 
                 campuspref_skill[i].setText("Preferred Skills: " + skills);
@@ -305,116 +310,7 @@ public class GigFinder extends javax.swing.JFrame {
         }
     }  
    
-    
-    /*
-    LINKED LIST 
-    public class LinkedList {
-  
-    Node head; // head of list
-  
-    // Linked list Node.
-    // Node is a static nested class
-    // so main() can access it
-    static class Node {
-  
-        int data;
-        Node next;
-  
-        // Constructor
-        Node(int d)
-        {
-            data = d;
-            next = null;
-        }
-    }
-  
-    // Method to insert a new node
-    public static LinkedList insert(LinkedList list,
-                                    int data)
-    {
-        // Create a new node with given data
-        Node new_node = new Node(data);
-        new_node.next = null;
-  
-        // If the Linked List is empty,
-        // then make the new node as head
-        if (list.head == null) {
-            list.head = new_node;
-        }
-        else {
-            // Else traverse till the last node
-            // and insert the new_node there
-            Node last = list.head;
-            while (last.next != null) {
-                last = last.next;
-            }
-  
-            // Insert the new_node at last node
-            last.next = new_node;
-        }
-  
-        // Return the list by head
-        return list;
-    }
-  
-    // Method to print the LinkedList.
-    public static void printList(LinkedList list)
-    {
-        Node currNode = list.head;
-  
-        System.out.print("LinkedList: ");
-  
-        // Traverse through the LinkedList
-        while (currNode != null) {
-            // Print the data at current node
-            System.out.print(currNode.data + " ");
-  
-            // Go to next node
-            currNode = currNode.next;
-        }
-    }
-    */
-     
-    /*
-    BINARY TREE 
-    
-    class Node {
-    int value;
-    Node left;
-    Node right;
 
-    Node(int value) {
-        this.value = value;
-        right = null;
-        left = null;
-    }
-}
-    
-    private Node addRecursive(Node current, int value) {
-    if (current == null) {
-        return new Node(value);
-    }
-
-    if (value < current.value) {
-        current.left = addRecursive(current.left, value);
-    } else if (value > current.value) {
-        current.right = addRecursive(current.right, value);
-    } else {
-        // value already exists
-        return current;
-    }
-
-    return current;
-}
-    
-    public void add(int value) {
-    root = addRecursive(root, value);
-}
-    
-    */
-    
-    
-    
     @SuppressWarnings("unchecked") 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -638,20 +534,12 @@ public class GigFinder extends javax.swing.JFrame {
             bProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bProfilePanelLayout.createSequentialGroup()
                 .addContainerGap(340, Short.MAX_VALUE)
-                .addComponent(companyName)
+                .addGroup(bProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(companyName)
+                    .addComponent(bbio)
+                    .addComponent(badress)
+                    .addComponent(BprofilePic, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(341, Short.MAX_VALUE))
-            .addGroup(bProfilePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bbio)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(bProfilePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(badress)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(bProfilePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BprofilePic, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         bProfilePanelLayout.setVerticalGroup(
             bProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -681,7 +569,7 @@ public class GigFinder extends javax.swing.JFrame {
         );
         BhomepageLayout.setVerticalGroup(
             BhomepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Bsidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
+            .addComponent(Bsidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
             .addGroup(BhomepageLayout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1043,11 +931,11 @@ public class GigFinder extends javax.swing.JFrame {
         campusJob.setLayout(campusJobLayout);
         campusJobLayout.setHorizontalGroup(
             campusJobLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 786, Short.MAX_VALUE)
+            .addGap(0, 780, Short.MAX_VALUE)
         );
         campusJobLayout.setVerticalGroup(
             campusJobLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 494, Short.MAX_VALUE)
+            .addGap(0, 350, Short.MAX_VALUE)
         );
 
         campusScroll.setViewportView(campusJob);
@@ -1056,6 +944,7 @@ public class GigFinder extends javax.swing.JFrame {
         tutorScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         tutorScroll.setViewportBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         tutorScroll.setMinimumSize(new java.awt.Dimension(790, 485));
+        tutorScroll.setName(""); // NOI18N
         tutorScroll.setPreferredSize(new java.awt.Dimension(790, 2000));
 
         tutorJob.setBackground(new java.awt.Color(0, 94, 129));
@@ -1067,7 +956,7 @@ public class GigFinder extends javax.swing.JFrame {
         tutorJob.setLayout(tutorJobLayout);
         tutorJobLayout.setHorizontalGroup(
             tutorJobLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 786, Short.MAX_VALUE)
+            .addGap(0, 783, Short.MAX_VALUE)
         );
         tutorJobLayout.setVerticalGroup(
             tutorJobLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1080,7 +969,7 @@ public class GigFinder extends javax.swing.JFrame {
         foodScroll.setForeground(new java.awt.Color(0, 94, 129));
         foodScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         foodScroll.setViewportBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        foodScroll.setMinimumSize(new java.awt.Dimension(800, 485));
+        foodScroll.setMinimumSize(new java.awt.Dimension(790, 485));
         foodScroll.setPreferredSize(new java.awt.Dimension(790, 2000));
 
         foodServiceJob.setBackground(new java.awt.Color(0, 94, 129));
@@ -1093,7 +982,7 @@ public class GigFinder extends javax.swing.JFrame {
         foodServiceJob.setLayout(foodServiceJobLayout);
         foodServiceJobLayout.setHorizontalGroup(
             foodServiceJobLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 786, Short.MAX_VALUE)
+            .addGap(0, 788, Short.MAX_VALUE)
         );
         foodServiceJobLayout.setVerticalGroup(
             foodServiceJobLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1120,11 +1009,11 @@ public class GigFinder extends javax.swing.JFrame {
         allJobs.setLayout(allJobsLayout);
         allJobsLayout.setHorizontalGroup(
             allJobsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 787, Short.MAX_VALUE)
+            .addGap(0, 778, Short.MAX_VALUE)
         );
         allJobsLayout.setVerticalGroup(
             allJobsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1300, Short.MAX_VALUE)
+            .addGap(0, 1998, Short.MAX_VALUE)
         );
 
         jScrollPane2.setViewportView(allJobs);
@@ -1134,16 +1023,16 @@ public class GigFinder extends javax.swing.JFrame {
         JobsPanelLayout.setHorizontalGroup(
             JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JobsPanelLayout.createSequentialGroup()
-                .addComponent(campusScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campusScroll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(JobsPanelLayout.createSequentialGroup()
-                    .addComponent(tutorScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tutorScroll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGap(0, 7, Short.MAX_VALUE)))
             .addGroup(JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(JobsPanelLayout.createSequentialGroup()
                     .addGap(1, 1, 1)
-                    .addComponent(foodScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(foodScroll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(JobsPanelLayout.createSequentialGroup()
@@ -1152,7 +1041,7 @@ public class GigFinder extends javax.swing.JFrame {
         );
         JobsPanelLayout.setVerticalGroup(
             JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(campusScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(campusScroll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(tutorScroll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(JobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1202,7 +1091,7 @@ public class GigFinder extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(labelJoblist)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JobsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                .addComponent(JobsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
                 .addGap(16, 16, 16))
         );
 
